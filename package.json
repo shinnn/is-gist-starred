@@ -1,0 +1,51 @@
+{
+  "name": "is-gist-starred",
+  "version": "1.0.0",
+  "description": "Check if you have starred a given gist or not",
+  "repository": "shinnn/is-gist-starred",
+  "author": "Shinnosuke Watanabe (https://github.com/shinnn)",
+  "scripts": {
+    "pretest": "eslint --fix --config @shinnn/node index.js test.js",
+    "test": "node --strong_mode --throw-deprecation --track-heap-objects test.js | tap-spec",
+    "coverage": "node --strong_mode node_modules/.bin/istanbul cover test.js"
+  },
+  "license": "MIT",
+  "files": [
+    "index.js"
+  ],
+  "keywords": [
+    "github",
+    "gist",
+    "star",
+    "starred",
+    "status",
+    "check",
+    "checker",
+    "if",
+    "true",
+    "false",
+    "boolean",
+    "api",
+    "github-api",
+    "access",
+    "get",
+    "request",
+    "promise",
+    "promises",
+    "then",
+    "async",
+    "asynchronous",
+    "asynchronously"
+  ],
+  "dependencies": {
+    "fettuccine": "^1.0.1",
+    "ghify-request-options": "^1.0.0"
+  },
+  "devDependencies": {
+    "@shinnn/eslint-config-node": "^1.0.1",
+    "eslint": "^1.10.3",
+    "istanbul": "^0.4.1",
+    "tap-spec": "^4.1.1",
+    "tape": "^4.3.0"
+  }
+}
