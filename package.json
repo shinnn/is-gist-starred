@@ -38,8 +38,7 @@
     "asynchronously"
   ],
   "dependencies": {
-    "fettuccine": "^1.0.1",
-    "ghify-request-options": "^1.0.0"
+    "gh-get": "^1.0.0"
   },
   "devDependencies": {
     "@shinnn/eslint-config-node": "^1.0.1",

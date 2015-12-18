@@ -4,8 +4,7 @@
 */
 'use strict';
 
-const fettuccine = require('fettuccine');
-const ghifyRequestOptions = require('ghify-request-options');
+const ghGet = require('gh-get');
 
 module.exports = function isGistStarred(gistId, options) {
   if (typeof gistId !== 'string') {
@@ -22,34 +21,29 @@ module.exports = function isGistStarred(gistId, options) {
 
   options = Object.assign({verbose: false}, options);
 
-  if (typeof options.verbose !== 'boolean') {
-    return Promise.reject(new TypeError(
-      String(options.verbose) +
-      ' is not a Boolean value. `verbose` option must be a Boolean value.' +
-      ' (`false` by default)'
-    ));
-  }
+  const verbose = options.verbose;
+
+  options = Object.assign({}, options, {
+    verbose: typeof verbose === 'boolean' ? true : verbose
+  });
 
   options.headers = Object.assign({
     'user-agent': 'https://github.com/shinnn/is-gist-starred'
   }, options.headers);
 
-  return fettuccine(`gists/${gistId}/star`, ghifyRequestOptions(options))
-  .then(function getStarredOrNotFromResponse(response) {
-    if (response.body && response.body.message) {
-      const error = new Error(
-        response.body.message === 'Not Found' ?
-        `Gist not found: https://gist.github.com/${gistId}` :
-        response.body.message
-      );
-
-      if (options.verbose) {
-        error.response = response;
+  return ghGet(`gists/${gistId}/star`, options).then(() => Promise.resolve(true), err => {
+    if (err.message === '404 Not Found') {
+      if (err.response.body && err.response.body.hasOwnProperty('message')) {
+        err.message += ` (Gist not found: https://gist.github.com/${gistId})`;
+      } else {
+        return Promise.resolve(false);
       }
-
-      return Promise.reject(error);
     }
 
-    return Promise.resolve(response.statusCode === 204);
+    if (!verbose) {
+      delete err.response;
+    }
+
+    return Promise.reject(err);
   });
 };

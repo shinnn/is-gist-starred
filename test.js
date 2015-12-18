@@ -21,7 +21,7 @@ test('isGistStarred()', t => {
   isGistStarred('9'.repeat(99), {token: process.env.IS_GIST_STARRED_TEST_TOKEN}).then(t.fail, err => {
     t.strictEqual(
       err.message,
-      `Gist not found: https://gist.github.com/${'9'.repeat(99)}`,
+      `404 Not Found (Gist not found: https://gist.github.com/${'9'.repeat(99)})`,
       'should fail when it cannot find the Gist with the given ID.'
     );
     t.notOk(
@@ -37,7 +37,7 @@ test('isGistStarred()', t => {
   }).then(t.fail, err => {
     t.strictEqual(
       err.message,
-      'Bad credentials',
+      '401 Unauthorized (Bad credentials)',
       'should fail when the token is not valid.'
     );
     t.deepEqual(
