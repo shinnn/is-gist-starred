@@ -1,6 +1,6 @@
 {
   "name": "is-gist-starred",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Check if you have starred a given gist or not",
   "repository": "shinnn/is-gist-starred",
   "author": "Shinnosuke Watanabe (https://github.com/shinnn)",
