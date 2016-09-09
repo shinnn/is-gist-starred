@@ -33,7 +33,7 @@ module.exports = function isGistStarred(gistId, options) {
 
   return ghGet(`gists/${gistId}/star`, options).then(() => Promise.resolve(true), err => {
     if (err.message === '404 Not Found') {
-      if (err.response.body && err.response.body.hasOwnProperty('message')) {
+      if (err.response.body && 'message' in err.response.body) {
         err.message += ` (Gist not found: https://gist.github.com/${gistId})`;
       } else {
         return Promise.resolve(false);
