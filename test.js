@@ -1,4 +1,4 @@
-'use strong';
+'use strict';
 
 const isGistStarred = require('.');
 const test = require('tape');
